@@ -1,0 +1,36 @@
+package smallProject2.selenium;
+
+import java.util.List;
+import org.openqa.selenium.By;
+import org.openqa.selenium.Dimension;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+
+public class LoginHotel {
+	public static void main(String[] args) {
+		
+		WebDriver driver;
+		@SuppressWarnings("unused")
+		WebDriverWait wait;
+		
+		System.setProperty("webdriver.chrome.driver","D:\\SekolahQA\\chromedriver_win32\\chromedriver.exe");
+		driver = new ChromeDriver();
+		
+		driver.get("http://qa.cilsy.id:8080/en/");
+		driver.manage().window().setSize(new Dimension(1296, 696));
+	    driver.findElement(By.cssSelector(".hide_xs")).click();
+	    driver.findElement(By.id("email")).click();
+	    driver.findElement(By.id("email")).sendKeys("qatest@mailinator.com");
+	    driver.findElement(By.id("passwd")).click();
+	    driver.findElement(By.id("passwd")).sendKeys("Qwerty123");
+	    driver.findElement(By.cssSelector("#SubmitLogin > span")).click();
+	    {
+    	List<WebElement> elements = driver.findElements(By.cssSelector(".page-heading"));	 
+    	assert(elements.size() > 0);
+	    }
+		
+	}
+}
