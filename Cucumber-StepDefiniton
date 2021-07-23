@@ -1,0 +1,74 @@
+package cucumber.StepDefinition;
+
+import java.util.List;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.Dimension;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import io.cucumber.java.en.And;
+import io.cucumber.java.en.Given;
+import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
+
+public class seleniumLogin {
+	
+	WebDriver driver;
+	WebDriverWait wait;
+
+	@Given("^User open the website$")
+    public void user_open_the_website() throws Throwable {			
+		System.setProperty("webdriver.chrome.driver","D:\\SekolahQA\\chromedriver_win32\\chromedriver.exe");
+		driver = new ChromeDriver();
+		
+		driver.get("http://qa.cilsy.id:8080/en/");
+		driver.manage().window().setSize(new Dimension(1296, 696));	    }
+
+    @When("^User go to login page$")
+    public void user_go_to_login_page() throws Throwable {
+	    driver.findElement(By.cssSelector(".hide_xs")).click();
+    }
+
+
+    @And("^User input valid credential$")
+    public void user_input_valid_credential() throws Throwable {
+	    driver.findElement(By.id("email")).click();
+	    driver.findElement(By.id("email")).sendKeys("qatest@mailinator.com");
+	    driver.findElement(By.id("passwd")).click();
+	    driver.findElement(By.id("passwd")).sendKeys("Qwerty123");
+    }
+
+    @And("^User click button login$")
+    public void user_click_button_login() throws Throwable {
+	    driver.findElement(By.cssSelector("#SubmitLogin > span")).click();
+    }
+    
+    @Then("^Login process is success$")
+    public void login_process_is_success() throws Throwable {
+    {
+    	 List<WebElement> elements = driver.findElements(By.cssSelector(".page-heading"));	 
+       	assert(elements.size() > 0);		    }
+    }
+    
+    @And("^User input invalid credential$")
+    public void user_input_invalid_credential() throws Throwable {
+    	driver.findElement(By.id("email")).click();
+	    driver.findElement(By.id("email")).sendKeys("qatestinvalid@mailinator.com");
+	    driver.findElement(By.id("passwd")).click();
+	    driver.findElement(By.id("passwd")).sendKeys("Qwerty123invalid");	    
+	}
+    
+    @Then("^Login process is failed$")
+    public void login_process_is_invalid() throws Throwable {
+    	driver.findElement(By.cssSelector("#columns > .row:nth-child(2)")).click();
+        {
+          List<WebElement> elements = driver.findElements(By.cssSelector("ol > li"));
+          assert(elements.size() > 0);
+        }
+    }
+
+}
+
+
