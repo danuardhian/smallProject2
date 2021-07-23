@@ -1,0 +1,18 @@
+@LoginHotel
+Feature: Validate the Login functionality
+
+@LoginValid
+	Scenario: Login with valid credential
+		Given User open the website
+		When User go to login page
+		And User input valid credential
+		And User click button login
+		Then Login process is success
+
+@LoginInvalid
+	Scenario: Login with invalid credential
+		Given User open the website
+		When User go to login page
+		And User input invalid credential
+		And User click button login
+		Then Login process is failed
